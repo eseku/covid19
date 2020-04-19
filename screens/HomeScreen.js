@@ -23,7 +23,7 @@ function HomeScreen(props) {
           <PageBanner />
           <SelfCheckBanner {...props} />
           <LatestUpdate />
-          <ActiveCases />
+          <ActiveCases navigation={props.navigation} />
         </ScrollView>
       </SafeAreaView>
     </View>

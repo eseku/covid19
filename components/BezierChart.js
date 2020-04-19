@@ -59,13 +59,15 @@ const BezierChart = (props) => {
         const sortedData = {
           labels: data
             .map((element) => moment(element.Date))
-            .filter((element) => element.isAfter(context.filters.startDate)),
+            .filter((element) =>
+              element.isSameOrAfter(context.filters.startDate)
+            ),
           points: data
             .map(({ Date, Cases }) => {
               return { Date, Cases };
             })
             .filter(({ Date }) => {
-              return moment(Date).isAfter(context.filters.startDate);
+              return moment(Date).isSameOrAfter(context.filters.startDate);
             })
             .map((element) => moment(element.Cases)),
         };
@@ -77,7 +79,6 @@ const BezierChart = (props) => {
       });
   }
 };
-
 const chartConfig = {
   // backgroundGradientFrom: "#1E2923",
   backgroundGradientFromOpacity: 0,

@@ -11,7 +11,7 @@ import * as Font from "expo-font";
 import { Ionicons } from "@expo/vector-icons";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { Home, Check } from "./screens";
+import { Home, Check, DatePickerScreen } from "./screens";
 import useLinking from "./navigation/useLinking";
 import { AppContextProvider } from "~/context/Context";
 
@@ -63,6 +63,7 @@ export default function App(props) {
             initialState={initialNavigationState}
           >
             <Navigator
+              initialRouteName="Home"
               screenOptions={{
                 headerShown: false,
                 gestureEnabled: true,
@@ -70,6 +71,7 @@ export default function App(props) {
             >
               <Screen name="Home" component={Home} />
               <Screen name="Check" component={Check} />
+              <Screen name="PickDate" component={DatePickerScreen} />
             </Navigator>
           </NavigationContainer>
         </View>

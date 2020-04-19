@@ -1,12 +1,11 @@
 import React, { useContext } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, TouchableOpacity } from "react-native";
 import BezierChart from "./BezierChart";
 import { Text, Bold } from "~/components/StyledText";
 import { AntDesign } from "@expo/vector-icons";
 import { AppContext } from "~/context/Context";
-import moment from "moment";
 
-const ActiveCases = () => {
+const ActiveCases = (props) => {
   const context = useContext(AppContext);
 
   return (
@@ -17,7 +16,11 @@ const ActiveCases = () => {
             Confirmed Cases
           </Bold>
         </View>
-        <View>
+        <TouchableOpacity
+          onPress={() => {
+            console.log(props.navigation.navigate("PickDate"));
+          }}
+        >
           <Bold style={{ color: "#118CF4" }}>
             {context.filters.startDate.format("DD MMM")} - Today
             <AntDesign
@@ -26,7 +29,7 @@ const ActiveCases = () => {
               style={{ marginLeft: 5 }}
             />
           </Bold>
-        </View>
+        </TouchableOpacity>
       </View>
       <View>
         <BezierChart />
