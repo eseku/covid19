@@ -13,11 +13,12 @@ export default (props) => {
       <Bold
         style={{
           color: "#f4f6fa",
-          fontSize: 30,
+          fontSize: 20,
           borderWidth: 0,
           borderColor: "white",
           paddingBottom: 0,
           paddingTop: 8,
+          alignSelf: "center",
         }}
       >
         {props.actionName}

@@ -6,6 +6,7 @@ import {
   SafeAreaView,
   Platform,
   StatusBar,
+  ScrollView,
 } from "react-native";
 import { AssessmentQuestions } from "~/components/Assessment";
 import { Ionicons } from "@expo/vector-icons";
@@ -15,17 +16,19 @@ export default function LinksScreen({ navigation }) {
     <View style={styles.container}>
       {Platform.OS === "ios" && <StatusBar barStyle="light-content" />}
       <SafeAreaView style={styles.container}>
-        <View style={styles.back}>
-          <TouchableOpacity
-            style={styles.backButton}
-            onPress={() => {
-              navigation.pop();
-            }}
-          >
-            <Ionicons name={"ios-arrow-back"} size={30} color="white" />
-          </TouchableOpacity>
-        </View>
-        <AssessmentQuestions />
+        <ScrollView>
+          <View style={styles.back}>
+            <TouchableOpacity
+              style={styles.backButton}
+              onPress={() => {
+                navigation.pop();
+              }}
+            >
+              <Ionicons name={"ios-arrow-back"} size={30} color="white" />
+            </TouchableOpacity>
+          </View>
+          <AssessmentQuestions />
+        </ScrollView>
       </SafeAreaView>
     </View>
   );

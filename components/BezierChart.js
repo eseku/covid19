@@ -1,18 +1,35 @@
-import React from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { View, Dimensions, StyleSheet } from "react-native";
-import { Text, Bold } from "~/components/StyledText";
+import moment from "moment";
 import { LineChart } from "react-native-chart-kit";
+import { AppContext } from "~/context/Context";
+import Axios from "axios";
 
 const BezierChart = (props) => {
+  const context = useContext(AppContext);
+
+  const [casesPlot, setCasesPlot] = useState({
+    labels: [
+      moment("2020-03-18T00:00:00Z").format("DD"),
+      moment("2020-03-19T00:00:00Z").format("DD"),
+      moment("2020-03-20T00:00:00Z").format("DD"),
+      moment("2020-03-21T00:00:00Z").format("DD"),
+      moment("2020-03-22T00:00:00Z").format("DD"),
+    ],
+    points: [7, 11, 16, 19, 23],
+  });
+  useEffect(() => {
+    getData();
+  }, [context.filters, context.country]);
   return (
     <View style={styles.wrapper}>
       <View style={styles.bezierWrapper}>
         <LineChart
           data={{
-            labels: ["19", "20", "21", "22"],
+            labels: casesPlot.labels,
             datasets: [
               {
-                data: [2, 16, 48, 64, 132],
+                data: casesPlot.points,
               },
             ],
           }}
@@ -21,6 +38,8 @@ const BezierChart = (props) => {
           yAxisLabel={undefined}
           yAxisSuffix={undefined}
           yAxisInterval={1} // optional, defaults to 1
+          formatYLabel={(value) => String(value).split(".")[0]}
+          formatXLabel={(value) => moment(value).format("DD MMM")}
           chartConfig={chartConfig}
           bezier
           style={{
@@ -31,6 +50,32 @@ const BezierChart = (props) => {
       </View>
     </View>
   );
+
+  function getData() {
+    Axios.get(
+      `https://api.covid19api.com/country/${context.country?.Slug}/status/confirmed/live?from=${context.filters.startDate}&to=${context.filters.endDate}`
+    )
+      .then(({ data }) => {
+        const sortedData = {
+          labels: data
+            .map((element) => moment(element.Date))
+            .filter((element) => element.isAfter(context.filters.startDate)),
+          points: data
+            .map(({ Date, Cases }) => {
+              return { Date, Cases };
+            })
+            .filter(({ Date }) => {
+              return moment(Date).isAfter(context.filters.startDate);
+            })
+            .map((element) => moment(element.Cases)),
+        };
+        // console.log(sortedData);
+        setCasesPlot(sortedData);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }
 };
 
 const chartConfig = {
@@ -41,7 +86,7 @@ const chartConfig = {
   color: (opacity = 0) => `rgba(11, 122, 237, ${opacity})`,
   strokeWidth: 3, // optional, default 3
   barPercentage: 1,
-  fillShadowGradient: "#1E2923",
+  fillShadowGradient: "rgba(11, 122, 237, 0.05)",
 };
 
 const styles = StyleSheet.create({

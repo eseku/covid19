@@ -1,5 +1,6 @@
 import React, { createContext, useEffect, useState } from "react";
 import Axios from "axios";
+import moment from "moment";
 
 const AppContext = createContext({});
 
@@ -44,6 +45,11 @@ const AppQuestions = [
   },
 ];
 
+const AppFilters = {
+  startDate: moment().subtract(5, "days"),
+  endDate: moment(),
+};
+
 const AppContextProvider = ({ children }) => {
   const [country, setCountry] = useState({
     Country: "Ghana",
@@ -53,6 +59,7 @@ const AppContextProvider = ({ children }) => {
   const [countries, setCountries] = useState([]);
   const [summary, setSummary] = useState([]);
   const [questions, mutateQuestions] = useState(AppQuestions);
+  const [filters, setFilters] = useState(AppFilters);
 
   useEffect(() => {
     getAllCountryStats();
@@ -74,6 +81,7 @@ const AppContextProvider = ({ children }) => {
         setIndividualCountry,
         questions,
         respondToQuestion,
+        filters,
       }}
     >
       {children}
@@ -125,6 +133,9 @@ const AppContextProvider = ({ children }) => {
         console.log(e);
       });
   }
+  // function mutateFilters() {
+  //   Axios.get("https://https://api.covid19api.com/country/ghana/status/confirmed/live?from=2020-03-01T00:00:00Z&to=2020-04-01T00:00:00Z")
+  // }
 };
 
 export { AppContext, AppContextProvider };
