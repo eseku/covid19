@@ -3,6 +3,7 @@ import { View, StyleSheet } from "react-native";
 import { Text } from "~/components/StyledText";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Selector from "./CountrySelector";
+import moment from "moment";
 
 const PageBanner = () => {
   return (
@@ -18,7 +19,9 @@ const PageBanner = () => {
         </View>
         <Selector />
         <View>
-          <Text style={styles.dateTextStyle}>Wed, 25 Mar 20</Text>
+          <Text style={styles.dateTextStyle}>
+            {moment().format("ddd, D MMM YY")}
+          </Text>
         </View>
       </View>
     </View>

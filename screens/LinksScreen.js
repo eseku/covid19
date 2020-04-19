@@ -1,13 +1,32 @@
-import { Ionicons } from "@expo/vector-icons";
-import * as WebBrowser from "expo-web-browser";
 import * as React from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { RectButton, ScrollView } from "react-native-gesture-handler";
+import {
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  SafeAreaView,
+  Platform,
+  StatusBar,
+} from "react-native";
+import { AssessmentQuestions } from "~/components/Assessment";
+import { Ionicons } from "@expo/vector-icons";
 
-export default function LinksScreen() {
+export default function LinksScreen({ navigation }) {
   return (
     <View style={styles.container}>
-      <Text>Hello Self Check</Text>
+      {Platform.OS === "ios" && <StatusBar barStyle="light-content" />}
+      <SafeAreaView style={styles.container}>
+        <View style={styles.back}>
+          <TouchableOpacity
+            style={styles.backButton}
+            onPress={() => {
+              navigation.pop();
+            }}
+          >
+            <Ionicons name={"ios-arrow-back"} size={30} color="white" />
+          </TouchableOpacity>
+        </View>
+        <AssessmentQuestions />
+      </SafeAreaView>
     </View>
   );
 }
@@ -15,6 +34,26 @@ export default function LinksScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fafafa",
+    backgroundColor: "#212B46",
+    borderWidth: 0,
+    borderColor: "green",
+  },
+  safeAreaViewWrapper: {
+    borderWidth: 0,
+    borderColor: "pink",
+    flex: 1,
+  },
+  back: {
+    borderColor: "white",
+    borderWidth: 0,
+    paddingVertical: 20,
+    paddingHorizontal: 25,
+    display: "flex",
+    flexDirection: "row",
+  },
+  backButton: {
+    borderColor: "red",
+    borderWidth: 0,
+    paddingRight: 10,
   },
 });

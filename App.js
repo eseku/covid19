@@ -56,7 +56,7 @@ export default function App(props) {
   } else {
     return (
       <AppContextProvider>
-        <SafeAreaView style={styles.container}>
+        <View style={styles.container}>
           {Platform.OS === "ios" && <StatusBar barStyle="dark-content" />}
           <NavigationContainer
             ref={containerRef}
@@ -72,7 +72,7 @@ export default function App(props) {
               <Screen name="Check" component={Check} />
             </Navigator>
           </NavigationContainer>
-        </SafeAreaView>
+        </View>
       </AppContextProvider>
     );
   }

@@ -6,31 +6,13 @@ import { LineChart } from "react-native-chart-kit";
 const BezierChart = (props) => {
   return (
     <View style={styles.wrapper}>
-      <View style={styles.header}>
-        <View style={styles.selector}>
-          <Bold style={{ color: "#C6C9DC" }}>Daily</Bold>
-        </View>
-        <View style={styles.selector}>
-          <Bold style={{ color: "#C6C9DC" }}>Weekly</Bold>
-        </View>
-        <View style={styles.selector}>
-          <Bold style={{ color: "#C6C9DC" }}>Monthly</Bold>
-        </View>
-      </View>
       <View style={styles.bezierWrapper}>
         <LineChart
           data={{
             labels: ["19", "20", "21", "22"],
             datasets: [
               {
-                data: [
-                  parseInt(Math.ceil(Math.random() * 100)),
-                  parseInt(Math.ceil(Math.random() * 100)),
-                  parseInt(Math.ceil(Math.random() * 100)),
-                  parseInt(Math.ceil(Math.random() * 100)),
-                  parseInt(Math.ceil(Math.random() * 100)),
-                  parseInt(Math.ceil(Math.random() * 100)),
-                ],
+                data: [2, 16, 48, 64, 132],
               },
             ],
           }}
@@ -52,15 +34,14 @@ const BezierChart = (props) => {
 };
 
 const chartConfig = {
-  backgroundGradientFrom: "#1E2923",
+  // backgroundGradientFrom: "#1E2923",
   backgroundGradientFromOpacity: 0,
-  backgroundGradientTo: "#08130D",
-  backgroundGradientToOpacity: 0.5,
-  color: (opacity = 1) => `rgba(11, 122, 237, ${opacity})`,
+  backgroundGradientTo: "#fff",
+  backgroundGradientToOpacity: 0,
+  color: (opacity = 0) => `rgba(11, 122, 237, ${opacity})`,
   strokeWidth: 3, // optional, default 3
-  barPercentage: 0.5,
-  fillShadowGradient: "red",
-  // propsforBackgroundLines:
+  barPercentage: 1,
+  fillShadowGradient: "#1E2923",
 };
 
 const styles = StyleSheet.create({

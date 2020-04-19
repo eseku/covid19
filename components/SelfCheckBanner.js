@@ -54,6 +54,9 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     backgroundColor: "#212B46",
+    shadowOffset: { width: 10, height: 10 },
+    shadowColor: "#212B46",
+    shadowOpacity: 0.1,
   },
   innerBannerInnerText: {
     paddingHorizontal: 25,

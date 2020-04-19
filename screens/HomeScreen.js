@@ -1,21 +1,31 @@
-import * as WebBrowser from "expo-web-browser";
 import * as React from "react";
-import { Platform, StyleSheet, View } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
+import {
+  Platform,
+  StyleSheet,
+  View,
+  SafeAreaView,
+  StatusBar,
+} from "react-native";
 import {
   PageBanner,
   SelfCheckBanner,
   LatestUpdate,
   ActiveCases,
 } from "../components";
+import { ScrollView } from "react-native-gesture-handler";
 
 function HomeScreen(props) {
   return (
     <View style={styles.container}>
-      <PageBanner />
-      <SelfCheckBanner {...props} />
-      <LatestUpdate />
-      <ActiveCases />
+      {Platform.OS === "ios" && <StatusBar barStyle="dark-content" />}
+      <SafeAreaView>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <PageBanner />
+          <SelfCheckBanner {...props} />
+          <LatestUpdate />
+          <ActiveCases />
+        </ScrollView>
+      </SafeAreaView>
     </View>
   );
 }

@@ -1,10 +1,11 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Text, Bold } from "~/components/StyledText";
 import { View, StyleSheet, Dimensions } from "react-native";
 import Icon from "./Icon";
 import { AppContext } from "../context/Context";
+import moment from "moment";
+import numeral from "numeral";
 const screenWidth = Math.round(Dimensions.get("window").width);
-const screenHeight = Math.round(Dimensions.get("window").height);
 
 const LatestUpdate = () => {
   return (
@@ -16,6 +17,11 @@ const LatestUpdate = () => {
 };
 
 const LatestUpdateHeader = () => {
+  const context = useContext(AppContext);
+  const [country, setCountry] = useState({});
+  useEffect(() => {
+    GetCountryData();
+  }, [context.country, context.summary]);
   return (
     <View style={styles.latestUpdateHeaderWrapper}>
       <View>
@@ -24,7 +30,7 @@ const LatestUpdateHeader = () => {
       <View style={styles.detailsView}>
         <View>
           <Text style={{ color: "#C3C8DC" }}>
-            Last Updated 25 Mar 20 . 16:37 WIB
+            As at {country && moment(country.Date).fromNow()}
           </Text>
         </View>
         <View>
@@ -33,32 +39,64 @@ const LatestUpdateHeader = () => {
       </View>
     </View>
   );
+  function GetCountryData() {
+    const country =
+      context.summary?.Countries &&
+      context.summary.Countries.find((element) => {
+        return element.Slug === context.country.Slug;
+      });
+    setCountry(country);
+  }
 };
 
 const LatestUpdateBody = () => {
   const context = useContext(AppContext);
+  const [country, setCountry] = useState({});
+  useEffect(() => {
+    GetCountryData();
+  }, [context.country, context.summary]);
   return (
     <View style={styles.latestUpdateBodyWrapper}>
       <LatestUpdateCard
         iconName="plus"
         iconColor="#FFC48C"
-        value={context.countryData?.countrydata[0]["total_active_cases"]}
+        value={
+          numeral(country?.TotalConfirmed && country?.TotalConfirmed).format(
+            "0,0"
+          ) || "..."
+        }
         status={"infected"}
       />
       <LatestUpdateCard
         iconName="heart"
         iconColor="#18A571"
-        value={context.countryData?.countrydata[0]["total_recovered"]}
+        value={
+          numeral(country?.TotalRecovered && country?.TotalRecovered).format(
+            "0,0"
+          ) || "..."
+        }
         status={"recovered"}
       />
       <LatestUpdateCard
         iconName="close"
         iconColor="#DC394E"
-        value={context.countryData?.countrydata[0]["total_deaths"]}
+        value={
+          numeral(country?.TotalDeaths && country?.TotalDeaths).format("0,0") ||
+          "..."
+        }
         status={"deaths"}
       />
     </View>
   );
+
+  function GetCountryData() {
+    const country =
+      context.summary?.Countries &&
+      context.summary.Countries.find((element) => {
+        return element.Slug === context.country.Slug;
+      });
+    setCountry(country);
+  }
 };
 
 const LatestUpdateCard = (props) => {
@@ -111,7 +149,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   latestUpdateCardWrapper: {
-    borderColor: "#C6C9DC",
+    borderColor: "#E8E8E8",
     borderWidth: 0.3,
     width: (screenWidth - 50) / 3.25,
     alignItems: "center",
@@ -120,15 +158,15 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     borderRadius: 5,
     shadowOffset: { width: 10, height: 10 },
-    shadowColor: "rgb(24, 165, 113)",
+    shadowColor: "rgba(24, 165, 113, 0.6)",
     shadowOpacity: 0.04,
-    backgroundColor: "#fff",
+    backgroundColor: "white",
   },
   latestUpdateCardBody: {
     alignItems: "center",
   },
   latestUpdateNumber: {
-    fontSize: 40,
+    fontSize: 30,
   },
   latestUpdateText: {
     fontSize: 10,

@@ -1,5 +1,11 @@
 import React, { useState, useContext } from "react";
-import { View, StyleSheet, TouchableOpacity, Dimensions } from "react-native";
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Dimensions,
+  ScrollView,
+} from "react-native";
 import { Text, Bold } from "~/components/StyledText";
 import { AntDesign } from "@expo/vector-icons";
 import Modal from "react-native-modal";
@@ -17,7 +23,9 @@ const Selector = () => {
     >
       <View style={styles.countryDisplayView}>
         <View>
-          <Bold style={styles.countryTextStyle}>{context["country"]}</Bold>
+          <Bold style={styles.countryTextStyle}>
+            {context.country?.Country}
+          </Bold>
         </View>
         <View>
           <Bold>
@@ -31,6 +39,7 @@ const Selector = () => {
         onSwipeComplete={() => setShowModal(!showModal)}
         style={{
           margin: 0,
+
           justifyContent: "flex-end",
         }}
       >
@@ -39,25 +48,66 @@ const Selector = () => {
             marginTop: 50,
             paddingHorizontal: 20,
             backgroundColor: "white",
-            height: Dimensions.get("window").height / 1.1,
+            height: Dimensions.get("window").height / 1.3,
             borderTopRightRadius: 25,
             borderTopLeftRadius: 25,
+            paddingTop: 20,
           }}
         >
-          <Bold>I am the modal content!</Bold>
-          <TouchableOpacity
-            onClick={() => {
-              setShowModal(false);
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
             }}
-            style={{ borderWidth: 2, borderColor: "tomato" }}
           >
-            <Bold>Close</Bold>
-          </TouchableOpacity>
+            <Bold style={{ fontSize: 40 }}>Select Country </Bold>
+            <Bold style={{ fontSize: 40 }}>🌍 </Bold>
+          </View>
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{
+              paddingVertical: 20,
+            }}
+          >
+            {context.summary.Countries &&
+              context.summary.Countries.map((el, index) => {
+                return (
+                  <TouchableOpacity
+                    key={index}
+                    onPress={() => {
+                      context.setIndividualCountry(el.Country);
+                      setShowModal(false);
+                    }}
+                    style={{
+                      borderColor: "#C6C9DC",
+                      borderBottomWidth: 0.5,
+                      paddingVertical: 20,
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <Text style={{ fontSize: 25 }}>{el.Country} </Text>
+                    <Bold style={{ fontSize: 25 }}>
+                      {cCodeToEmoji(el.CountryCode)}
+                    </Bold>
+                  </TouchableOpacity>
+                );
+              })}
+          </ScrollView>
         </View>
       </Modal>
     </TouchableOpacity>
   );
 };
+
+function cCodeToEmoji(cCode) {
+  return cCode
+    .toUpperCase()
+    .replace(/./g, (char) => String.fromCodePoint(char.charCodeAt(0) + 127397));
+}
 
 export default Selector;
 
@@ -69,5 +119,6 @@ const styles = StyleSheet.create({
   },
   countryTextStyle: {
     fontSize: 50,
+    color: "#212B46",
   },
 });
