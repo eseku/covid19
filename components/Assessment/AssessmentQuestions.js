@@ -116,7 +116,7 @@ function ProgressBar(props) {
             style={
               ([StyleSheet.absoluteFill],
               {
-                backgroundColor: "white",
+                backgroundColor: props.answered === 5 ? "#6DFF4D" : "white",
                 width: `${(props.answered / 5) * 100}%`,
                 flexDirection: "row",
               })
@@ -127,7 +127,13 @@ function ProgressBar(props) {
         </View>
       </View>
       <View style={{ flex: 1, paddingHorizontal: 10 }}>
-        <Text style={{ alignSelf: "center", fontSize: 20, color: "white" }}>
+        <Text
+          style={{
+            alignSelf: "center",
+            fontSize: 20,
+            color: props.answered === 5 ? "#6DFF4D" : "white",
+          }}
+        >
           {props.answered}/5
         </Text>
       </View>
