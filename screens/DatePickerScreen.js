@@ -22,36 +22,45 @@ function DatePickerScreen(props) {
   });
   return (
     <View style={styles.container}>
-      {Platform.OS === "ios" && <StatusBar barStyle="dark-content" />}
+      {Platform.OS === "ios" && <StatusBar barStyle="light-content" />}
       <View style={styles.content}>
         <View style={styles.back}>
           <TouchableOpacity
-            style={styles.backButton}
+            style={{
+              flex: 1,
+            }}
             onPress={() => {
               props.navigation.pop();
             }}
           >
-            <Ionicons name={"ios-arrow-back"} size={30} color="black" />
+            <Ionicons name={"ios-arrow-back"} size={30} color="#fff" />
           </TouchableOpacity>
+          <View style={{ flex: 5 }}>
+            <Bold
+              style={{
+                backgroundColor: "#50646B",
+                color: "#fff",
+                fontSize: 20,
+              }}
+            >
+              Select Date
+            </Bold>
+          </View>
         </View>
         <View style={{ flexGrow: 1 }}>
-          <View style={{ paddingHorizontal: 25 }}>
-            <Bold style={{ fontSize: 20 }}>Date Range</Bold>
-            {/* <DatePicker initialDate={moment()} /> */}
-          </View>
           <View
             style={{
-              backgroundColor: "white",
+              backgroundColor: "#212B46",
               display: "flex",
               flexDirection: "row",
               justifyContent: "space-between",
               paddingHorizontal: 25,
-              paddingVertical: 35,
+              paddingVertical: 25,
               alignItems: "center",
             }}
           >
             <View style={{ borderColor: "#118CF4", borderBottomWidth: 2 }}>
-              <Bold style={{ fontSize: 25 }}>
+              <Bold style={{ fontSize: 25, color: "#fff" }}>
                 {moment(dates.startDate || context.filters.startDate).format(
                   "DD MMM YYYY"
                 )}
@@ -62,7 +71,7 @@ function DatePickerScreen(props) {
               <Ionicons name="md-arrow-forward" size={35} color="#74E15C" />
             </View>
             <View style={{ borderColor: "#118CF4", borderBottomWidth: 2 }}>
-              <Bold style={{ fontSize: 25 }}>
+              <Bold style={{ fontSize: 25, color: "#fff" }}>
                 {moment(dates.endDate || context.filters.endDate).format(
                   "DD MMM YYYY"
                 )}
@@ -106,7 +115,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-start",
     alignItems: "stretch",
-    marginTop: 50,
+    paddingTop: 50,
+    // borderWidth: 1,
+    // borderColor: "black",
+    backgroundColor: "#50646B",
   },
   back: {
     borderColor: "white",
@@ -115,5 +127,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 25,
     display: "flex",
     flexDirection: "row",
+    justifyContent: "flex-start",
+    alignItems: "center",
   },
 });
