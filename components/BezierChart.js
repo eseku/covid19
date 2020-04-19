@@ -4,6 +4,7 @@ import moment from "moment";
 import { LineChart } from "react-native-chart-kit";
 import { AppContext } from "~/context/Context";
 import Axios from "axios";
+import numeral from "numeral";
 
 const BezierChart = (props) => {
   const context = useContext(AppContext);
@@ -38,7 +39,9 @@ const BezierChart = (props) => {
           yAxisLabel={undefined}
           yAxisSuffix={undefined}
           yAxisInterval={1} // optional, defaults to 1
-          formatYLabel={(value) => String(value).split(".")[0]}
+          formatYLabel={(value) =>
+            numeral(Number(String(value).split(".")[0])).format("0,0")
+          }
           formatXLabel={(value) => moment(value).format("DD MMM")}
           chartConfig={chartConfig}
           bezier
