@@ -72,14 +72,28 @@ const AssessmentQuestions = () => {
             )}
           </View>
         </View>
-        <View style={styles.shadowView}>
-          <View style={styles.shadowViewInnerTop}>
-            <View style={styles.shadowViewInnerTopInner} />
+        {answered < 4 && (
+          <View style={styles.shadowView}>
+            <View style={styles.shadowViewInnerTop}>
+              <View
+                style={[
+                  styles.shadowViewInnerTopInner,
+                  {
+                    backgroundColor:
+                      answered < 3
+                        ? "rgba(255, 255, 255, 0.2)"
+                        : "rgba(255, 255, 255, 0.01)",
+                  },
+                ]}
+              />
+            </View>
+            {answered < 3 && (
+              <View style={styles.shadowViewInnerBottom}>
+                <View style={styles.shadowViewInnerBottomInner}></View>
+              </View>
+            )}
           </View>
-          <View style={styles.shadowViewInnerBottom}>
-            <View style={styles.shadowViewInnerBottomInner}></View>
-          </View>
-        </View>
+        )}
       </View>
     </View>
   );
