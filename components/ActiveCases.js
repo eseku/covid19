@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { View, StyleSheet, TouchableOpacity } from "react-native";
 import BezierChart from "./BezierChart";
-import { Text, Bold } from "~/components/StyledText";
+import { Bold } from "~/components/StyledText";
 import { AntDesign } from "@expo/vector-icons";
 import { AppContext } from "~/context/Context";
 
@@ -24,9 +24,9 @@ const ActiveCases = (props) => {
           <Bold style={{ color: "#118CF4" }}>
             {context.filters.startDate.format("DD MMM")} - Today
             <AntDesign
-              name={"caretdown"}
+              name={"caretright"}
               color={"#C3C8DC"}
-              style={{ marginLeft: 5 }}
+              style={{}}
             />
           </Bold>
         </TouchableOpacity>

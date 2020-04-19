@@ -27,10 +27,10 @@ const Selector = () => {
             {context.country?.Country}
           </Bold>
         </View>
-        <View>
-          <Bold>
-            <AntDesign name={"caretdown"} color={"#C3C8DC"} />
-          </Bold>
+        <View style={{ paddingHorizontal: 10 }}>
+
+          <AntDesign name={"caretdown"} color={"#C3C8DC"} />
+
         </View>
       </View>
       <Modal
@@ -39,7 +39,6 @@ const Selector = () => {
         onSwipeComplete={() => setShowModal(!showModal)}
         style={{
           margin: 0,
-
           justifyContent: "flex-end",
         }}
       >
@@ -62,8 +61,8 @@ const Selector = () => {
               alignItems: "center",
             }}
           >
-            <Bold style={{ fontSize: 40 }}>Select Country </Bold>
-            <Bold style={{ fontSize: 40 }}>🌍 </Bold>
+            <Bold style={{ fontSize: 30 }}>Select Country </Bold>
+            <Bold style={{ fontSize: 30 }}>🌍 </Bold>
           </View>
           <ScrollView
             showsVerticalScrollIndicator={false}
@@ -89,8 +88,8 @@ const Selector = () => {
                       justifyContent: "space-between",
                     }}
                   >
-                    <Text style={{ fontSize: 25 }}>{el.Country} </Text>
-                    <Bold style={{ fontSize: 25 }}>
+                    <Text style={{ fontSize: 18 }}>{el.Country} </Text>
+                    <Bold style={{ fontSize: 18 }}>
                       {cCodeToEmoji(el.CountryCode)}
                     </Bold>
                   </TouchableOpacity>
@@ -116,9 +115,12 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "flex-start",
+
   },
   countryTextStyle: {
     fontSize: 50,
     color: "#212B46",
+
   },
 });

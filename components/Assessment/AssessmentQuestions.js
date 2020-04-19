@@ -37,17 +37,17 @@ const AssessmentQuestions = () => {
           </View>
           <View style={styles.bodyContentQuestionSection}>
             <View style={styles.title}>
-              <Bold style={{ fontSize: 45 }}>
+              <Bold style={{ fontSize: 35 }}>
                 {answered < 5
                   ? unAnsweredQuestions[0]?.title
                   : "You have successfully completed 5/5 Questions!"}
               </Bold>
             </View>
             <View style={styles.body}>
-              <Text style={{ fontSize: 28, color: "#C6C9DC" }}>
+              <Text style={{ fontSize: 20, color: "#212B46" }}>
                 {answered < 5
                   ? unAnsweredQuestions[0]?.body
-                  : "Further assesment results and health advise would be sent to your email."}
+                  : "Further assesment results and health advice would be sent to your email."}
               </Text>
             </View>
             {answered < 5 && (
@@ -134,7 +134,9 @@ function ProgressBar(props) {
             color: props.answered === 5 ? "#6DFF4D" : "white",
           }}
         >
-          {props.answered}/5
+          {<Text style={{ fontSize: 28 }}>
+            {props.answered}
+          </Text>}/5
         </Text>
       </View>
     </View>
@@ -224,10 +226,12 @@ const styles = StyleSheet.create({
   title: {
     borderWidth: 0,
     borderColor: "red",
+    paddingBottom: 10
   },
   body: {
     borderWidth: 0,
     borderColor: "red",
+    paddingVertical: 10
   },
   action: {
     borderWidth: 0,

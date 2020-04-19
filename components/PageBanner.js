@@ -13,8 +13,20 @@ const PageBanner = () => {
           <View>
             <Text style={{ fontSize: 20 }}>Current outbreak</Text>
           </View>
-          <View>
-            <MaterialCommunityIcons name="bell" size={30} color={"#C3C8DC"} />
+          <View style={{ position: "relative" }}>
+            <MaterialCommunityIcons name="bell" size={35} color={"#C3C8DC"} style={{}} />
+            <View style={{
+              backgroundColor: "#E3342F",
+              justifyContent: "center",
+              alignItems: "center",
+              width: 15,
+              height: 15,
+              borderRadius: "50%",
+              position: "absolute",
+              right: 0
+            }}>
+              <Text style={{ color: "#fff" }}>1</Text>
+            </View>
           </View>
         </View>
         <Selector />

@@ -27,10 +27,10 @@ const BezierChart = (props) => {
       <View style={styles.bezierWrapper}>
         <LineChart
           data={{
-            labels: casesPlot.labels,
+            labels: casesPlot.labels || [0, 0, 0, 0, 0],
             datasets: [
               {
-                data: casesPlot.points,
+                data: casesPlot.points || [0, 0, 0, 0, 0],
               },
             ],
           }}

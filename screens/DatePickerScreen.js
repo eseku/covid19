@@ -40,10 +40,10 @@ function DatePickerScreen(props) {
               style={{
                 backgroundColor: "#50646B",
                 color: "#fff",
-                fontSize: 20,
+                fontSize: 30,
               }}
             >
-              Select Date
+              Select Date Range
             </Bold>
           </View>
         </View>
